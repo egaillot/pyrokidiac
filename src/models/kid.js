@@ -1,4 +1,4 @@
-const atPosition = function(initialPosition) {
+const kidAtPosition = function(initialPosition) {
   var currentPosition = initialPosition;
 
   const moveLeft = function () {
@@ -12,4 +12,14 @@ const atPosition = function(initialPosition) {
   return { moveLeft, position };
 };
 
-module.exports = { atPosition };
+(function () {
+  const thingsToExport = { kidAtPosition };
+
+  if (typeof(module) !== "undefined")
+    module.exports = thingsToExport;
+
+  if (typeof(window) !== "undefined") {
+    window.PK = window.PK || {};
+    Object.keys(thingsToExport).forEach(function (key) { window.PK[key] = thingsToExport[key]; });
+  }
+}());

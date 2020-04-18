@@ -8,4 +8,10 @@ html {
   height: 400px;
   border: solid 2px #011638;
   background: #fffae8;
+  position: relative;
+}
+
+.kid {
+  background: #011638;
+  position: absolute;
 }
