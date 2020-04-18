@@ -20,9 +20,15 @@ describe("Fire View", function () {
   });
 
   it("displays flames", function () {
-    const fireView = aFireView({ strength: 2 }, document, ".playscreen");
-    fireView.display();
+    aFireView({ strength: 2 }, document, ".playscreen");
     const fireElement = document.querySelector(".fire");
     expect(fireElement.children.length).to.equal(2);
+  });
+
+  it("refreshes when fire state changes", function () {
+    const fireView = aFireView({ strength: 2 }, document, ".playscreen");
+    fireView.fireStateChanged({ strength: 3 });
+    const fireElement = document.querySelector(".fire");
+    expect(fireElement.children.length).to.equal(3);
   });
 });

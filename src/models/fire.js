@@ -1,11 +1,34 @@
 const aFire = function (initialState) {
   var strength = initialState.strength;
+  var observers = [];
+
+  const addObserver = function (observer) {
+    observers.push(observer);
+  };
+
+  const edge = function () {
+    return 0;
+  };
+
+  const grow = function () {
+    strength += 1;
+    notifyObservers();
+  };
 
   const isAlive = function () {
     return strength > 0;
   };
 
-  return { isAlive };
+  const state = function () {
+    return { strength };
+  };
+
+  const notifyObservers = function () {
+    const currentState = state();
+    observers.forEach((o) => o.fireStateChanged(currentState));
+  };
+
+  return { addObserver, edge, grow, isAlive, state };
 };
 
 (function () {

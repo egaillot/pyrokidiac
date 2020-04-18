@@ -64,7 +64,8 @@ describe("Kid", function () {
   });
 
   it("drops the log when Drop Button is pressed", function () {
-    const kid = aKid({ position: 5, carriesALog: true });
+    const fire = { edge: () => 0 };
+    const kid = aKid({ position: 5, carriesALog: true }, fire);
     expect(kid.isCarryingALog()).to.be(true);
 
     kid.dropButtonPressed();
@@ -88,4 +89,11 @@ describe("Kid", function () {
     expect(kid.state()).to.eql({ position: 4, carriesALog: false });
   });
 
+
+  it("feeds Fire when dropping log close to it", function (done) {
+    const fire = { edge: () => 0, grow: done };
+    const kid = aKid({ position: 1, carriesALog: true }, fire);
+
+    kid.dropLog();
+  });
 });

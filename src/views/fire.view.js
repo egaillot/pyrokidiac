@@ -16,11 +16,13 @@
       fireElement.style.visibility = "visible";
     };
 
+    const fireStateChanged = function (newState) {
+      strength = newState.strength;
+      refresh(fireElement);
+    };
+
     const getFireElement = function () {
       const fireElement = aDivOfClass("fire", document);
-      for(var i = 0; i < strength; i++) {
-        fireElement.append(getFlameElement(i));
-      }
       return fireElement;
     };
 
@@ -44,10 +46,19 @@
       return flameElement;
     };
 
+    const refresh = function (element) {
+      element.textContent = "";
+
+      for(var i = 0; i < strength; i++) {
+        element.append(getFlameElement(i));
+      }
+    };
+
     const fireElement = getFireElement();
+    refresh(fireElement);
     parent.appendChild(fireElement);
 
-    return { display };
+    return { display, fireStateChanged };
   };
 
   const thingsToExport = { aFireView };

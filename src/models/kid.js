@@ -1,4 +1,4 @@
-const aKid = function(initialState) {
+const aKid = function(initialState, fire) {
   var currentPosition = initialState.position;
   var carriesALog = initialState.carriesALog;
   var observers = [];
@@ -9,6 +9,17 @@ const aKid = function(initialState) {
 
   const dropButtonPressed = function () {
     dropLog();
+  };
+
+  const dropLog = function () {
+    if (carriesALog) {
+      carriesALog = false;
+      notifyObserversStateChanged();
+
+      if (fire.edge() === currentPosition - 1) {
+        fire.grow();
+      }
+    }
   };
 
   const isCarryingALog = function () {
@@ -48,11 +59,6 @@ const aKid = function(initialState) {
     notifyObserversStateChanged();
   };
 
-  const dropLog = function () {
-    carriesALog = false;
-    notifyObserversStateChanged();
-  };
-
   const notifyObserversStateChanged = function () {
     const currentState = state();
     observers.forEach((o) => o.kidStateChanged(currentState));
@@ -63,7 +69,7 @@ const aKid = function(initialState) {
     notifyObserversStateChanged();
   };
 
-  return { addObserver, dropButtonPressed, isCarryingALog, leftButtonPressed,
+  return { addObserver, dropButtonPressed, dropLog, isCarryingALog, leftButtonPressed,
            moveLeft, moveRight, position, rightButtonPressed, state };
 };
 
