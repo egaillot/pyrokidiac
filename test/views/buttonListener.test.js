@@ -12,4 +12,16 @@ describe("The Button Listener", function () {
     listener.add(observer);
     listener.notifyObservers({ keyCode: listener.LEFT_BUTTON });
   });
+
+  it("notifies observers when Right Button is pressed", function (done) {
+    const observer = {
+      rightButtonPressed: function () {
+        done();
+      }
+    };
+
+    const listener = aButtonListener();
+    listener.add(observer);
+    listener.notifyObservers({ keyCode: listener.RIGHT_BUTTON });
+  });
 });

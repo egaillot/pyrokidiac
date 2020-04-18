@@ -14,8 +14,16 @@ const kidAtPosition = function(initialPosition) {
     if (currentPosition > 0) shiftPosition(-1);
   };
 
+  const moveRight = function () {
+    if (currentPosition < 5) shiftPosition(1);
+  };
+
   const position = function () {
     return currentPosition;
+  };
+
+  const rightButtonPressed = function () {
+    moveRight();
   };
 
   const shiftPosition = function (shift) {
@@ -27,7 +35,7 @@ const kidAtPosition = function(initialPosition) {
     observers.forEach((o) => o.kidPositionChanged(currentPosition));
   };
 
-  return { addObserver, leftButtonPressed, moveLeft, position };
+  return { addObserver, leftButtonPressed, moveLeft, moveRight, position, rightButtonPressed };
 };
 
 (function () {

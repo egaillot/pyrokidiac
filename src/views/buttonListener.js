@@ -1,5 +1,7 @@
 const aButtonListener = function () {
-  const LEFT_BUTTON = 90;
+  const LEFT_BUTTON = 90; // Z key
+  const RIGHT_BUTTON = 77; // M key
+
   var observers = [];
 
   const add = function (observer) {
@@ -7,12 +9,17 @@ const aButtonListener = function () {
   };
 
   const notifyObservers = function (event) {
-    if (event.keyCode === LEFT_BUTTON) {
-      observers.forEach((o) => o.leftButtonPressed());
+    switch(event.keyCode) {
+      case LEFT_BUTTON:
+        observers.forEach((o) => o.leftButtonPressed());
+        break;
+      case RIGHT_BUTTON:
+        observers.forEach((o) => o.rightButtonPressed());
+        break;
     }
   };
 
-  return { LEFT_BUTTON, add, notifyObservers };
+  return { LEFT_BUTTON, RIGHT_BUTTON, add, notifyObservers };
 };
 
 (function () {
