@@ -1,4 +1,5 @@
 code:
+- /!\ Kid notifies observers when _state changes_ (not just position)
 - remove duplication of columns (6) + duplication of ground line (0.75 * height)
 - use before to set JSDOM
 - updateElementPosition -> refresh

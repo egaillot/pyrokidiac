@@ -1,9 +1,14 @@
 const kidAtPosition = function(initialPosition) {
   var currentPosition = initialPosition;
+  var carriesALog = false;
   var observers = [];
 
   const addObserver = function (observer) {
     observers.push(observer);
+  };
+
+  const isCarryingALog = function () {
+    return carriesALog;
   };
 
   const leftButtonPressed = function () {
@@ -16,6 +21,7 @@ const kidAtPosition = function(initialPosition) {
 
   const moveRight = function () {
     if (currentPosition < 5) shiftPosition(1);
+    else getALog();
   };
 
   const position = function () {
@@ -26,16 +32,21 @@ const kidAtPosition = function(initialPosition) {
     moveRight();
   };
 
-  const shiftPosition = function (shift) {
-    currentPosition += shift;
-    notifyObserversPositionChanged();
+  const getALog = function () {
+    carriesALog = true;
   };
 
   const notifyObserversPositionChanged = function () {
     observers.forEach((o) => o.kidPositionChanged(currentPosition));
   };
 
-  return { addObserver, leftButtonPressed, moveLeft, moveRight, position, rightButtonPressed };
+  const shiftPosition = function (shift) {
+    currentPosition += shift;
+    notifyObserversPositionChanged();
+  };
+
+  return { addObserver, isCarryingALog, leftButtonPressed,
+           moveLeft, moveRight, position, rightButtonPressed };
 };
 
 (function () {

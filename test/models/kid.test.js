@@ -54,4 +54,17 @@ describe("Kid", function () {
     kid.addObserver(observer);
     kid.moveLeft();
   });
+
+  it("doesn't carry a log at first", function () {
+    const kid = kidAtPosition(4);
+    expect(kid.isCarryingALog()).not.to.be.ok();
+  });
+
+  it("gets a log when trying to move past position 5", function () {
+    const kid = kidAtPosition(5);
+    expect(kid.isCarryingALog()).not.to.be.ok();
+
+    kid.moveRight();
+    expect(kid.isCarryingALog()).to.be.ok();
+  });
 });
