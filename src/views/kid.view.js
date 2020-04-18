@@ -8,6 +8,8 @@
     const HEIGHT = 100;
     const MAX_POS = 6;
 
+    const parent = document.querySelector(selector);
+
     const display = function () {
       kidElement.style.visibility = "visible";
     };
@@ -40,7 +42,6 @@
       return aDivOfClass("kid", document);
     };
 
-    const parent = document.querySelector(selector);
     const kidElement = getKidElement(document);
     updateElementPosition(initialState.position);
     parent.appendChild(kidElement);

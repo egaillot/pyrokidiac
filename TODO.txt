@@ -1,14 +1,12 @@
 code:
-- /!\ Kid notifies observers when _state changes_ (not just position)
 - remove duplication of columns (6) + duplication of ground line (0.75 * height)
-- use before to set JSDOM
-- updateElementPosition -> refresh
-- encapsulate code in views into a `init` method
-- get initial states from models
 - check scopes in source
 -
 
 features:
+- fire goes out
+- mark points
+- drop log
 - buttons
 - README
 - favicon

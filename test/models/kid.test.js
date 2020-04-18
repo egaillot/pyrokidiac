@@ -79,4 +79,10 @@ describe("Kid", function () {
     kid.addObserver(observer);
     kid.moveRight();
   });
+
+  it("returns its state", function () {
+    const kid = kidAtPosition(4);
+    expect(kid.state()).to.eql({ position: 4, carriesALog: false });
+  });
+
 });

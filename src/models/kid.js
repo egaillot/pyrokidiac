@@ -32,16 +32,20 @@ const kidAtPosition = function(initialPosition) {
     moveRight();
   };
 
+  const state = function () {
+    return {
+      position: currentPosition,
+      carriesALog: carriesALog
+    };
+  };
+
   const getALog = function () {
     carriesALog = true;
     notifyObserversStateChanged();
   };
 
   const notifyObserversStateChanged = function () {
-    const currentState = {
-      position: currentPosition,
-      carriesALog: carriesALog
-    };
+    const currentState = state();
     observers.forEach((o) => o.kidStateChanged(currentState));
   };
 
@@ -51,7 +55,7 @@ const kidAtPosition = function(initialPosition) {
   };
 
   return { addObserver, isCarryingALog, leftButtonPressed,
-           moveLeft, moveRight, position, rightButtonPressed };
+           moveLeft, moveRight, position, rightButtonPressed, state };
 };
 
 (function () {
