@@ -36,13 +36,17 @@ const kidAtPosition = function(initialPosition) {
     carriesALog = true;
   };
 
-  const notifyObserversPositionChanged = function () {
-    observers.forEach((o) => o.kidPositionChanged(currentPosition));
+  const notifyObserversStateChanged = function () {
+    const currentState = {
+      position: currentPosition,
+      carriesALog: carriesALog
+    };
+    observers.forEach((o) => o.kidStateChanged(currentState));
   };
 
   const shiftPosition = function (shift) {
     currentPosition += shift;
-    notifyObserversPositionChanged();
+    notifyObserversStateChanged();
   };
 
   return { addObserver, isCarryingALog, leftButtonPressed,

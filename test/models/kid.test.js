@@ -45,8 +45,8 @@ describe("Kid", function () {
 
   it("notifies its observers when position changes", function (done) {
     const observer = {
-      kidPositionChanged: function (newPosition) {
-        expect(newPosition).to.equal(3);
+      kidStateChanged: function (newState) {
+        expect(newState.position).to.equal(3);
         done();
       }
     };

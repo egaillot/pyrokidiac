@@ -12,7 +12,8 @@
       kidElement.style.visibility = "visible";
     };
 
-    const kidPositionChanged = function (newPosition) {
+    const kidStateChanged = function (newState) {
+      const newPosition = newState.position;
       return updateElementPosition(newPosition);
     };
 
@@ -38,7 +39,7 @@
     updateElementPosition(initialState.position);
     parent.appendChild(kidElement);
 
-    return { display, kidPositionChanged };
+    return { display, kidStateChanged };
   };
 
 
