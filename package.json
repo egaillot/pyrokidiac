@@ -4,7 +4,7 @@
   "description": "Pyrokidiac!",
   "main": "index.js",
   "scripts": {
-    "test": "eslint . && mocha --recursive"
+    "test": "eslint --color . && mocha --recursive --colors"
   },
   "repository": {
     "type": "git",
