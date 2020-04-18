@@ -1,4 +1,5 @@
 const aButtonListener = function () {
+  const DROP_BUTTON = 65; // A key
   const LEFT_BUTTON = 90; // Z key
   const RIGHT_BUTTON = 77; // M key
 
@@ -10,6 +11,9 @@ const aButtonListener = function () {
 
   const notifyObservers = function (event) {
     switch(event.keyCode) {
+      case DROP_BUTTON:
+        observers.forEach((o) => o.dropButtonPressed());
+        break;
       case LEFT_BUTTON:
         observers.forEach((o) => o.leftButtonPressed());
         break;
@@ -19,7 +23,7 @@ const aButtonListener = function () {
     }
   };
 
-  return { LEFT_BUTTON, RIGHT_BUTTON, add, notifyObservers };
+  return { DROP_BUTTON, LEFT_BUTTON, RIGHT_BUTTON, add, notifyObservers };
 };
 
 (function () {

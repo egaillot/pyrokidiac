@@ -24,4 +24,16 @@ describe("The Button Listener", function () {
     listener.add(observer);
     listener.notifyObservers({ keyCode: listener.RIGHT_BUTTON });
   });
+
+  it("notifies observers when Drop Button is pressed", function (done) {
+    const observer = {
+      dropButtonPressed: function () {
+        done();
+      }
+    };
+
+    const listener = aButtonListener();
+    listener.add(observer);
+    listener.notifyObservers({ keyCode: listener.DROP_BUTTON });
+  });
 });

@@ -68,6 +68,15 @@ describe("Kid", function () {
     expect(kid.isCarryingALog()).to.be.ok();
   });
 
+  it("drops the log when Drop Button is pressed", function () {
+    const kid = kidAtPosition(5);
+    kid.moveRight();
+    expect(kid.isCarryingALog()).to.be.ok();
+
+    kid.dropButtonPressed();
+    expect(kid.isCarryingALog()).not.to.be.ok();
+  });
+
   it("notifies its observers when getting a log", function (done) {
     const observer = {
       kidStateChanged: function (newState) {

@@ -7,6 +7,10 @@ const kidAtPosition = function(initialPosition) {
     observers.push(observer);
   };
 
+  const dropButtonPressed = function () {
+    dropLog();
+  };
+
   const isCarryingALog = function () {
     return carriesALog;
   };
@@ -44,6 +48,11 @@ const kidAtPosition = function(initialPosition) {
     notifyObserversStateChanged();
   };
 
+  const dropLog = function () {
+    carriesALog = false;
+    notifyObserversStateChanged();
+  };
+
   const notifyObserversStateChanged = function () {
     const currentState = state();
     observers.forEach((o) => o.kidStateChanged(currentState));
@@ -54,7 +63,7 @@ const kidAtPosition = function(initialPosition) {
     notifyObserversStateChanged();
   };
 
-  return { addObserver, isCarryingALog, leftButtonPressed,
+  return { addObserver, dropButtonPressed, isCarryingALog, leftButtonPressed,
            moveLeft, moveRight, position, rightButtonPressed, state };
 };
 
