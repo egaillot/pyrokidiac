@@ -1,0 +1,11 @@
+html {
+  background: #364156;
+}
+
+.playscreen {
+  margin: 150px auto;
+  width: 600px;
+  height: 400px;
+  border: solid 2px #011638;
+  background: #fffae8;
+}
