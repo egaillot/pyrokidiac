@@ -13,8 +13,8 @@
     };
 
     const kidStateChanged = function (newState) {
-      const newPosition = newState.position;
-      return updateElementPosition(newPosition);
+      updateElementPosition(newState.position);
+      updateLogCarrying(newState.carriesALog);
     };
 
     const updateElementPosition = function (newPosition) {
@@ -28,6 +28,12 @@
       style.height = `${HEIGHT}px`;
       style.left = `${x_position}px`;
       style.top = `${y_position}px`;
+    };
+
+    const updateLogCarrying = function (carriesALog) {
+      var classList = kidElement.classList;
+      if (carriesALog) classList.add("withLog");
+      else classList.remove("withLog");
     };
 
     const getKidElement = function (document) {

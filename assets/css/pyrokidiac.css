@@ -16,6 +16,10 @@ html {
   position: absolute;
 }
 
+.kid.withLog {
+  background: #43291f;
+}
+
 .flame {
   background: #da2c38;
   position: absolute;

@@ -67,4 +67,16 @@ describe("Kid", function () {
     kid.moveRight();
     expect(kid.isCarryingALog()).to.be.ok();
   });
+
+  it("notifies its observers when getting a log", function (done) {
+    const observer = {
+      kidStateChanged: function (newState) {
+        expect(newState.carriesALog).to.equal(true);
+        done();
+      }
+    };
+    const kid = kidAtPosition(5);
+    kid.addObserver(observer);
+    kid.moveRight();
+  });
 });

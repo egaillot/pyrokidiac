@@ -34,6 +34,7 @@ const kidAtPosition = function(initialPosition) {
 
   const getALog = function () {
     carriesALog = true;
+    notifyObserversStateChanged();
   };
 
   const notifyObserversStateChanged = function () {
