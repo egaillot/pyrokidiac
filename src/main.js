@@ -1,6 +1,6 @@
 window.start = function (selector) {
   const buttonListener = window.PK.aButtonListener();
-  const kid = window.PK.kidAtPosition(4);
+  const kid = window.PK.aKid({ position: 4 });
   const kidView = window.PK.aKidView(kid.state(), document, selector);
   const fireView = window.PK.aFireView({ strength: 2 }, document, selector);
 

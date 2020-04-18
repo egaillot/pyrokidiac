@@ -1,6 +1,6 @@
-const kidAtPosition = function(initialPosition) {
-  var currentPosition = initialPosition;
-  var carriesALog = false;
+const aKid = function(initialState) {
+  var currentPosition = initialState.position;
+  var carriesALog = initialState.carriesALog;
   var observers = [];
 
   const addObserver = function (observer) {
@@ -68,7 +68,7 @@ const kidAtPosition = function(initialPosition) {
 };
 
 (function () {
-  const thingsToExport = { kidAtPosition };
+  const thingsToExport = { aKid };
 
   if (typeof(module) !== "undefined")
     module.exports = thingsToExport;
