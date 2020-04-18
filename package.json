@@ -1,0 +1,23 @@
+{
+  "name": "pyrokidiac",
+  "version": "1.0.0",
+  "description": "Pyrokidiac!",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egaillot/pyrokidiac.git"
+  },
+  "author": "Emmanuel Gaillot",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/egaillot/pyrokidiac/issues"
+  },
+  "homepage": "https://github.com/egaillot/pyrokidiac#readme",
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^7.1.1"
+  }
+}
