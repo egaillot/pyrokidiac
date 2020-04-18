@@ -1,15 +1,33 @@
 const kidAtPosition = function(initialPosition) {
   var currentPosition = initialPosition;
+  var observers = [];
+
+  const addObserver = function (observer) {
+    observers.push(observer);
+  };
+
+  const leftButtonPressed = function () {
+    moveLeft();
+  };
 
   const moveLeft = function () {
-    if (currentPosition > 0) currentPosition -= 1;
+    if (currentPosition > 0) shiftPosition(-1);
   };
 
   const position = function () {
     return currentPosition;
   };
 
-  return { moveLeft, position };
+  const shiftPosition = function (shift) {
+    currentPosition += shift;
+    notifyObserversPositionChanged();
+  };
+
+  const notifyObserversPositionChanged = function () {
+    observers.forEach((o) => o.kidPositionChanged(currentPosition));
+  };
+
+  return { addObserver, leftButtonPressed, moveLeft, position };
 };
 
 (function () {

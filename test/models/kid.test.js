@@ -18,4 +18,22 @@ describe("Kid", function () {
     kid.moveLeft();
     expect(kid.position()).to.equal(0);
   });
+
+  it("updates its position when Left Button is pressed", function () {
+    const kid = kidAtPosition(4);
+    kid.leftButtonPressed();
+    expect(kid.position()).to.equal(3);
+  });
+
+  it("notifies its observers when position changes", function (done) {
+    const observer = {
+      kidPositionChanged: function (newPosition) {
+        expect(newPosition).to.equal(3);
+        done();
+      }
+    };
+    const kid = kidAtPosition(4);
+    kid.addObserver(observer);
+    kid.moveLeft();
+  });
 });
