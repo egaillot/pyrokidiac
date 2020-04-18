@@ -4,7 +4,11 @@ const { JSDOM } = require("jsdom");
 const { aKidView } = require("../../src/views/kid.view.js");
 
 describe("Kid view", function () {
-  const { document } = new JSDOM("<div class=\"playscreen\"></div>").window;
+  var document;
+
+  beforeEach(function () {
+    document = new JSDOM("<div class=\"playscreen\"></div>").window.document;
+  });
 
   it("displays Kid", function () {
     const kidView = aKidView({ position: 4}, document, ".playscreen");
