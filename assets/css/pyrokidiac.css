@@ -44,30 +44,28 @@ html {
   width: 600px;
   height: 400px;
   border: solid 2px #011638;
-  background: #fffae8;
+  background: url("../images/screen.png") #fffae8;
   position: relative;
 }
 
 .kid {
-  background: #011638;
+  background: url("../images/kid.png");
   position: absolute;
+  filter: drop-shadow(2px 2px 3px #555)
 }
 
 .kid.withLog {
-  background: #43291f;
+  background: url("../images/kidWithLog.png");
 }
 
 .kid.game-over {
-  background: #888;
+  background: url("../images/kidGameOver.png");
 }
 
 .flame {
-  background: #da2c38;
+  background: url("../images/fire.png") 80px 43px;
   position: absolute;
-}
-
-.flame.game-over {
-  background: #888;
+  filter: drop-shadow(2px 2px 3px #555)
 }
 
 .score, .game-over-message {

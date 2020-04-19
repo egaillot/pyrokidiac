@@ -4,6 +4,7 @@ code:
 - remove `.js` from file paths
 
 features:
+- pick up only one log at a time
 - neighbors watching
 - pace up with time
 - buttons
