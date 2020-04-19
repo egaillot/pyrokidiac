@@ -7,7 +7,7 @@ window.start = function (selector) {
   const fire = PK.aFire({ strength: 2 });
   const kid = PK.aKid({ position: 4 }, fire);
   const game = PK.aGame();
-  const kidView = PK.aKidView(kid.state(), document, selector);
+  const kidView = PK.aKidView(kid.state(), document, selector, soundPlayer);
   const fireView = PK.aFireView(fire.state(), document, selector);
   const scoreView = PK.aScoreView(document, selector, soundPlayer);
 

@@ -14,12 +14,14 @@
     };
 
     const gameStateChanged = function (newState) {
-      const score = newState.score;
-      scoreElement.innerText = `${score}`;
       if (newState.gameOver) {
         soundPlayer.play("gameOver");
         gameOverElement.innerText = "Game Over!";
+        return;
       }
+
+      const score = newState.score;
+      scoreElement.innerText = `${score}`;
     };
 
     const kidStateChanged = function (newState) {

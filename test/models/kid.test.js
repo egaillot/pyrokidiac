@@ -91,7 +91,10 @@ describe("Kid", function () {
 
   it("returns its state", function () {
     const kid = aKid({ position: 4, carriesALog: false, gameOver: true }, fire);
-    expect(kid.state()).to.eql({ position: 4, carriesALog: false, gameOver: true });
+    expect(kid.state()).to.eql({
+      position: 4, carriesALog: false, gameOver: true,
+      justDroppedALogInFire: false
+    });
   });
 
   it("feeds Fire when dropping log close to it", function (done) {
@@ -152,5 +155,21 @@ describe("Kid", function () {
     kid.gameStateChanged({ gameOver: true });
     kid.gameStateChanged({ gameOver: true });
     expect(timesObserverNotified).to.equal(1);
+  });
+
+  it("notifies its observers when just having dropped a log in the fire", function () {
+    var timesObserverNotifiedAboutDroppingLog = 0;
+    const observer = {
+      kidStateChanged: function (state) {
+        if (state.justDroppedALogInFire) timesObserverNotifiedAboutDroppingLog +=1;
+      }
+    };
+
+    fire.grow = () => {};
+    const kid = aKid({ position: 1, carriesALog: true }, fire);
+    kid.addObserver(observer);
+    kid.dropLog();
+    kid.moveRight();
+    expect(timesObserverNotifiedAboutDroppingLog).to.equal(1);
   });
 });

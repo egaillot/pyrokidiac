@@ -1,6 +1,7 @@
 const aKid = function(initialState, fire) {
   var currentPosition = initialState.position;
   var carriesALog = initialState.carriesALog;
+  var justDroppedALogInFire = false;
   var gameOver = typeof(initialState.gameOver) !== "undefined" ? initialState.gameOver : false;
   var observers = [];
 
@@ -17,11 +18,14 @@ const aKid = function(initialState, fire) {
 
     if (carriesALog) {
       carriesALog = false;
-      notifyObserversStateChanged();
 
       if (fire.edge() === currentPosition - 1) {
+        justDroppedALogInFire = true;
         fire.grow();
       }
+
+      notifyObserversStateChanged();
+      justDroppedALogInFire = false;
     }
   };
 
@@ -63,7 +67,8 @@ const aKid = function(initialState, fire) {
     return {
       position: currentPosition,
       carriesALog,
-      gameOver
+      gameOver,
+      justDroppedALogInFire
     };
   };
 

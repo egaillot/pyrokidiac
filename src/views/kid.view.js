@@ -3,11 +3,12 @@
                         ? require("./utils.js")
                         : window.PK;
 
-  const aKidView = function (initialState, document, selector) {
+  const aKidView = function (initialState, document, selector, player) {
     const WIDTH = 50;
     const HEIGHT = 100;
     const MAX_POS = 6;
 
+    const soundPlayer = player || { play: () => {} };
     const parent = document.querySelector(selector);
 
     const display = function () {
@@ -19,6 +20,8 @@
     };
 
     const kidStateChanged = function (newState) {
+      if (newState.justDroppedALogInFire) soundPlayer.play("dropLogInFire");
+
       updateElementPosition(newState.position);
       updateLogCarrying(newState.carriesALog);
     };

@@ -1,8 +1,11 @@
 (function () {
   const aSoundPlayer = function () {
-    const soundBank = {
-      "gameOver": new Audio("assets/sounds/gameOver.wav")
-    };
+    const soundNames = ["dropLogInFire", "gameOver"];
+
+    const soundBank = soundNames.reduce(function (acc, name) {
+      acc[name] = new Audio(`assets/sounds/${name}.wav`);
+      return acc;
+    }, {});
 
     const play = function (name) {
       const audio = soundBank[name];
