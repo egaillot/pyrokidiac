@@ -27,7 +27,7 @@ describe("The Fire", function () {
       }
     };
 
-    const fire = aFire({ strength: 2 });
+    const fire = aFire({ strength: 2, maxStrength: 5 });
     fire.addObserver(observer);
     fire.grow();
   });
@@ -60,5 +60,11 @@ describe("The Fire", function () {
     const fire = aFire({ strength: 2 });
     fire.addObserver(observer);
     fire.dim();
+  });
+
+  it("cannot grow past max strength", function () {
+    const fire = aFire({ strength: 5, maxStrength: 5 });
+    fire.grow();
+    expect(fire.state().strength).to.equal(5);
   });
 });

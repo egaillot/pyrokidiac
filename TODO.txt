@@ -4,9 +4,7 @@ code:
 - remove `.js` from file paths
 
 features:
-- limit fire size
 - mark points
-- fire goes out
 - buttons
 - README
 - favicon

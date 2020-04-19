@@ -1,4 +1,6 @@
 const aFire = function (initialState) {
+  const DEFAULT_MAX_STRENGTH = 5;
+  const maxStrength = initialState.maxStrength || DEFAULT_MAX_STRENGTH;
   var strength = initialState.strength;
   var observers = [];
 
@@ -15,7 +17,7 @@ const aFire = function (initialState) {
   };
 
   const grow = function () {
-    shiftStrength(1);
+    if (strength < maxStrength) shiftStrength(1);
   };
 
   const isAlive = function () {
