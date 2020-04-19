@@ -1,6 +1,7 @@
 const aKid = function(initialState, fire) {
   var currentPosition = initialState.position;
   var carriesALog = initialState.carriesALog;
+  var justDroppedALogAway = false;
   var justDroppedALogInFire = false;
   var gameOver = typeof(initialState.gameOver) !== "undefined" ? initialState.gameOver : false;
   var observers = [];
@@ -22,9 +23,12 @@ const aKid = function(initialState, fire) {
       if (fire.edge() === currentPosition - 1) {
         justDroppedALogInFire = true;
         fire.grow();
+      } else {
+        justDroppedALogAway = true;
       }
 
       notifyObserversStateChanged();
+      justDroppedALogAway = false;
       justDroppedALogInFire = false;
     }
   };
@@ -68,6 +72,7 @@ const aKid = function(initialState, fire) {
       position: currentPosition,
       carriesALog,
       gameOver,
+      justDroppedALogAway,
       justDroppedALogInFire
     };
   };

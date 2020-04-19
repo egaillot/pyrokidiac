@@ -93,7 +93,7 @@ describe("Kid", function () {
     const kid = aKid({ position: 4, carriesALog: false, gameOver: true }, fire);
     expect(kid.state()).to.eql({
       position: 4, carriesALog: false, gameOver: true,
-      justDroppedALogInFire: false
+      justDroppedALogAway: false, justDroppedALogInFire: false
     });
   });
 
@@ -167,6 +167,22 @@ describe("Kid", function () {
 
     fire.grow = () => {};
     const kid = aKid({ position: 1, carriesALog: true }, fire);
+    kid.addObserver(observer);
+    kid.dropLog();
+    kid.moveRight();
+    expect(timesObserverNotifiedAboutDroppingLog).to.equal(1);
+  });
+
+  it("notifies its observers when just having dropped a log away from fire", function () {
+    var timesObserverNotifiedAboutDroppingLog = 0;
+    const observer = {
+      kidStateChanged: function (state) {
+        if (state.justDroppedALogAway) timesObserverNotifiedAboutDroppingLog +=1;
+      }
+    };
+
+    fire.grow = () => {};
+    const kid = aKid({ position: 2, carriesALog: true }, fire);
     kid.addObserver(observer);
     kid.dropLog();
     kid.moveRight();

@@ -33,6 +33,18 @@ describe("Kid view", function () {
     kidView.kidStateChanged({ justDroppedALogInFire: true });
   });
 
+  it("plays a sound when Kid drops log away", function (done) {
+    const player = {
+      play: function (soundName) {
+        expect(soundName).to.equal("dropLog");
+        done();
+      }
+    };
+
+    const kidView = aKidView({ position: 4}, document, ".playscreen", player);
+    kidView.kidStateChanged({ justDroppedALogAway: true });
+  });
+
   it("displays Kid differently when Game Over", function () {
     const kidView = aKidView({ position: 4}, document, ".playscreen");
     const kidElement = document.querySelector(".playscreen .kid");
