@@ -41,4 +41,17 @@ describe("Fire View", function () {
     fireView.gameStateChanged({ gameOver: true });
     expect(Object.values(flameElement.classList)).to.contain("game-over");
   });
+
+  it("plays a sound when Fire dims", function (done) {
+    const player = {
+      play: function (soundName) {
+        expect(soundName).to.equal("fireDim");
+        done();
+      }
+    };
+
+    const fireView = aFireView({ strength: 2 }, document, ".playscreen", player);
+    fireView.fireStateChanged({ justDimmed: true });
+  });
+
 });

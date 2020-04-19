@@ -3,8 +3,9 @@
                         ? require("./utils.js")
                         : window.PK;
 
-  const aFireView = function (initialState, document, selector) {
+  const aFireView = function (initialState, document, selector, player) {
     const parent = document.querySelector(selector);
+    const soundPlayer = player || { play: () => {} };
 
     const MAX_POS = 6;
     const MAX_STRENGTH = 5;
@@ -19,6 +20,7 @@
     };
 
     const fireStateChanged = function (newState) {
+      if (newState.justDimmed) soundPlayer.play("fireDim");
       strength = newState.strength;
       refresh(fireElement);
     };

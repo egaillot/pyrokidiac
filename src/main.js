@@ -8,7 +8,7 @@ window.start = function (selector) {
   const kid = PK.aKid({ position: 4 }, fire);
   const game = PK.aGame();
   const kidView = PK.aKidView(kid.state(), document, selector, soundPlayer);
-  const fireView = PK.aFireView(fire.state(), document, selector);
+  const fireView = PK.aFireView(fire.state(), document, selector, soundPlayer);
   const scoreView = PK.aScoreView(document, selector, soundPlayer);
 
   buttonListener.add(kid);

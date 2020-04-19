@@ -2,6 +2,7 @@ const aFire = function (initialState) {
   const DEFAULT_MAX_STRENGTH = 5;
   const maxStrength = initialState.maxStrength || DEFAULT_MAX_STRENGTH;
   var gameOver = (typeof(initialState.gameOver) !== "undefined") ? initialState.gameOver : false;
+  var justDimmed = false;
   var strength = initialState.strength;
   var scoreShift = 0;
   var observers = [];
@@ -40,7 +41,7 @@ const aFire = function (initialState) {
   };
 
   const state = function () {
-    return { strength, scoreShift, gameOver };
+    return { gameOver, justDimmed, strength, scoreShift };
   };
 
   const gameIsOver = function () {
@@ -50,8 +51,11 @@ const aFire = function (initialState) {
 
   const shiftStrength = function (shift) {
     strength += shift;
+    if (shift < 0) justDimmed = true;
     if (strength === 0) gameOver = true;
+
     notifyObservers();
+    justDimmed = false;
   };
 
   const notifyObservers = function () {

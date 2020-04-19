@@ -121,4 +121,19 @@ describe("The Fire", function () {
     fire.gameStateChanged({ gameOver: true });
     expect(timesObserverNotified).to.equal(1);
   });
+
+  it("notifies its observers when just having dimmed", function () {
+    var timesObserverNotifiedAboutDim = 0;
+    const observer = {
+      fireStateChanged: function (state) {
+        if (state.justDimmed) timesObserverNotifiedAboutDim +=1;
+      }
+    };
+
+    const fire = aFire({ strength: 2 });
+    fire.addObserver(observer);
+    fire.dim();
+    fire.grow();
+    expect(timesObserverNotifiedAboutDim).to.equal(1);
+  });
 });
