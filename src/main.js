@@ -33,5 +33,5 @@ window.start = function (selector) {
   document.addEventListener("keydown", (e) => buttonListener.notifyObservers(e));
   setInterval(function () {
     tickerListener.notifyObservers();
-  }, 5000);
+  }, 3000);
 };
