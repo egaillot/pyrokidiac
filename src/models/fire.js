@@ -55,7 +55,7 @@ const aFire = function (initialState) {
 
   const shiftStrength = function (shift) {
     strength += shift;
-    if (shift < 0) justDimmed = true;
+    if (shift < 0 && strength > 0) justDimmed = true;
     if (strength === 0) gameOver = true;
 
     notifyObservers();

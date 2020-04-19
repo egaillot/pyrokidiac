@@ -69,6 +69,20 @@ describe("The Fire", function () {
     fire.dim();
   });
 
+  it("doesn't notify its observers when it dies out", function () {
+    var observerWasNotified = false;
+    const observer = {
+      fireStateChanged: function (state) {
+        if (state.justDimmed) observerWasNotified = true;
+      }
+    };
+
+    const fire = aFire({ strength: 1 });
+    fire.addObserver(observer);
+    fire.dim();
+    expect(observerWasNotified).to.be(false);
+  });
+
   it("cannot grow past max strength", function () {
     const fire = aFire({ strength: 5, maxStrength: 5 });
     expect(fire.canGrow()).to.be(false);
