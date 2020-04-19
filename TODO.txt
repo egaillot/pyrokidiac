@@ -4,6 +4,8 @@ code:
 - remove `.js` from file paths
 
 features:
+- neighbors watching
+- pace up with time
 - buttons
 - README
 - favicon

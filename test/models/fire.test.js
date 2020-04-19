@@ -15,6 +15,7 @@ describe("The Fire", function () {
 
   it("grows", function () {
     const fire = aFire({ strength: 2 });
+    expect(fire.canGrow()).to.be(true);
     fire.grow();
     expect(fire.state().strength).to.eql(3);
   });
@@ -70,6 +71,7 @@ describe("The Fire", function () {
 
   it("cannot grow past max strength", function () {
     const fire = aFire({ strength: 5, maxStrength: 5 });
+    expect(fire.canGrow()).to.be(false);
     fire.grow();
     expect(fire.state().strength).to.equal(5);
   });

@@ -22,6 +22,7 @@
     const kidStateChanged = function (newState) {
       if (newState.justDroppedALogInFire) soundPlayer.play("dropLogInFire");
       if (newState.justDroppedALogAway) soundPlayer.play("dropLog");
+      if (newState.justPickedALog) soundPlayer.play("pickUpLog");
 
       updateElementPosition(newState.position);
       updateLogCarrying(newState.carriesALog);

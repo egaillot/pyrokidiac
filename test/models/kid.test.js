@@ -5,7 +5,7 @@ describe("Kid", function () {
   var fire;
 
   beforeEach(function () {
-    fire = { edge: () => 0 };
+    fire = { canGrow: () => true, edge: () => 0, grow: () => {} };
   });
 
   it("has a starting position", function () {
@@ -93,7 +93,8 @@ describe("Kid", function () {
     const kid = aKid({ position: 4, carriesALog: false, gameOver: true }, fire);
     expect(kid.state()).to.eql({
       position: 4, carriesALog: false, gameOver: true,
-      justDroppedALogAway: false, justDroppedALogInFire: false
+      justDroppedALogAway: false, justDroppedALogInFire: false,
+      justPickedALog: false
     });
   });
 
@@ -165,7 +166,6 @@ describe("Kid", function () {
       }
     };
 
-    fire.grow = () => {};
     const kid = aKid({ position: 1, carriesALog: true }, fire);
     kid.addObserver(observer);
     kid.dropLog();
@@ -181,11 +181,41 @@ describe("Kid", function () {
       }
     };
 
-    fire.grow = () => {};
     const kid = aKid({ position: 2, carriesALog: true }, fire);
     kid.addObserver(observer);
     kid.dropLog();
     kid.moveRight();
     expect(timesObserverNotifiedAboutDroppingLog).to.equal(1);
+  });
+
+  it("notifies its observers when just having dropped in fire at max strength", function () {
+    var timesObserverNotifiedAboutDroppingLog = 0;
+    const observer = {
+      kidStateChanged: function (state) {
+        if (state.justDroppedALogAway) timesObserverNotifiedAboutDroppingLog +=1;
+      }
+    };
+
+    fire.canGrow = () => false;
+    const kid = aKid({ position: 1, carriesALog: true }, fire);
+    kid.addObserver(observer);
+    kid.dropLog();
+    kid.moveRight();
+    expect(timesObserverNotifiedAboutDroppingLog).to.equal(1);
+  });
+
+  it("notifies its observers when just having picked up a log", function () {
+    var timesObserverNotified = 0;
+    const observer = {
+      kidStateChanged: function (state) {
+        if (state.justPickedALog) timesObserverNotified +=1;
+      }
+    };
+
+    const kid = aKid({ position: 5 }, fire);
+    kid.addObserver(observer);
+    kid.moveRight();
+    kid.moveLeft();
+    expect(timesObserverNotified).to.equal(1);
   });
 });

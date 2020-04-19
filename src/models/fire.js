@@ -11,6 +11,10 @@ const aFire = function (initialState) {
     observers.push(observer);
   };
 
+  const canGrow = function () {
+    return strength < maxStrength;
+  };
+
   const dim = function () {
     shiftStrength(-1);
   };
@@ -64,7 +68,7 @@ const aFire = function (initialState) {
     scoreShift = 0;
   };
 
-  return { addObserver, dim, edge, gameStateChanged, grow, isAlive, nextTick, state };
+  return { addObserver, canGrow, dim, edge, gameStateChanged, grow, isAlive, nextTick, state };
 };
 
 (function () {

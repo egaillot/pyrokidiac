@@ -45,6 +45,18 @@ describe("Kid view", function () {
     kidView.kidStateChanged({ justDroppedALogAway: true });
   });
 
+  it("plays a sound when Kid picks up a log", function (done) {
+    const player = {
+      play: function (soundName) {
+        expect(soundName).to.equal("pickUpLog");
+        done();
+      }
+    };
+
+    const kidView = aKidView({ position: 4}, document, ".playscreen", player);
+    kidView.kidStateChanged({ justPickedALog: true });
+  });
+
   it("displays Kid differently when Game Over", function () {
     const kidView = aKidView({ position: 4}, document, ".playscreen");
     const kidElement = document.querySelector(".playscreen .kid");
