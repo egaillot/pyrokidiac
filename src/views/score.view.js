@@ -3,8 +3,9 @@
                         ? require("./utils.js")
                         : window.PK;
 
-  const aScoreView = function (document, selector) {
+  const aScoreView = function (document, selector, player) {
     const parent = document.querySelector(selector);
+    const soundPlayer = player || { play: () => {} };
 
     const display = function () {
       gameOverElement.style.visibility = "visible";
@@ -15,7 +16,10 @@
     const gameStateChanged = function (newState) {
       const score = newState.score;
       scoreElement.innerText = `${score}`;
-      if (newState.gameOver) gameOverElement.innerText = "Game Over!";
+      if (newState.gameOver) {
+        soundPlayer.play("gameOver");
+        gameOverElement.innerText = "Game Over!";
+      }
     };
 
     const kidStateChanged = function (newState) {

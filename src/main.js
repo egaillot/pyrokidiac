@@ -3,12 +3,13 @@ const PK = window.PK;
 window.start = function (selector) {
   const buttonListener = PK.aButtonListener();
   const tickerListener = PK.aTickerListener();
+  const soundPlayer = PK.aSoundPlayer();
   const fire = PK.aFire({ strength: 2 });
   const kid = PK.aKid({ position: 4 }, fire);
   const game = PK.aGame();
   const kidView = PK.aKidView(kid.state(), document, selector);
   const fireView = PK.aFireView(fire.state(), document, selector);
-  const scoreView = PK.aScoreView(document, selector);
+  const scoreView = PK.aScoreView(document, selector, soundPlayer);
 
   buttonListener.add(kid);
   tickerListener.add(fire);

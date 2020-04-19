@@ -34,4 +34,16 @@ describe("Score View", function () {
     scoreView.gameStateChanged({ score: 5, gameOver: true });
     expect(gameOverElement.innerText).to.equal("Game Over!");
   });
+
+  it("plays sound when Game Over", function (done) {
+    const soundPlayer = {
+      play: function (sound) {
+        expect(sound).to.equal("gameOver");
+        done();
+      }
+    };
+
+    const scoreView = aScoreView(document, ".playscreen", soundPlayer);
+    scoreView.gameStateChanged({ gameOver: true });
+  });
 });
