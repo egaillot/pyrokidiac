@@ -6,21 +6,33 @@ const aFire = function (initialState) {
     observers.push(observer);
   };
 
+  const dim = function () {
+    shiftStrength(-1);
+  };
+
   const edge = function () {
     return 0;
   };
 
   const grow = function () {
-    strength += 1;
-    notifyObservers();
+    shiftStrength(1);
   };
 
   const isAlive = function () {
     return strength > 0;
   };
 
+  const nextTick = function () {
+    if (strength > 0) dim();
+  };
+
   const state = function () {
     return { strength };
+  };
+
+  const shiftStrength = function (shift) {
+    strength += shift;
+    notifyObservers();
   };
 
   const notifyObservers = function () {
@@ -28,7 +40,7 @@ const aFire = function (initialState) {
     observers.forEach((o) => o.fireStateChanged(currentState));
   };
 
-  return { addObserver, edge, grow, isAlive, state };
+  return { addObserver, dim, edge, grow, isAlive, nextTick, state };
 };
 
 (function () {

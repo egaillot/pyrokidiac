@@ -1,6 +1,7 @@
 code:
 - remove duplication of columns (6) + duplication of ground line (0.75 * height)
 - check scopes in source
+- remove `.js` from file paths
 
 features:
 - limit fire size

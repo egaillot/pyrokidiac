@@ -36,4 +36,29 @@ describe("The Fire", function () {
     const fire = aFire({ strength: 2 });
     expect(fire.edge()).to.equal(0);
   });
+
+  it("dies out if not fed", function () {
+    const fire = aFire({ strength: 2 });
+    fire.nextTick();
+    expect(fire.state().strength).to.equal(1);
+  });
+
+  it("cannot go below 0", function () {
+    const fire = aFire({ strength: 0 });
+    fire.nextTick();
+    expect(fire.state().strength).to.equal(0);
+  });
+
+  it("notifies its observers when it dims", function (done) {
+    const observer = {
+      fireStateChanged: function (state) {
+        expect(state.strength).to.equal(1);
+        done();
+      }
+    };
+
+    const fire = aFire({ strength: 2 });
+    fire.addObserver(observer);
+    fire.dim();
+  });
 });
