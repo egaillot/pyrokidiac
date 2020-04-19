@@ -7,15 +7,18 @@ window.start = function (selector) {
   const kid = PK.aKid({ position: 4 }, fire);
   const kidView = PK.aKidView(kid.state(), document, selector);
   const fireView = PK.aFireView(fire.state(), document, selector);
+  const scoreView = PK.aScoreView(document, selector);
 
   buttonListener.add(kid);
   tickerListener.add(fire);
   kid.addObserver(kidView);
   fire.addObserver(fireView);
+  fire.addObserver(scoreView);
 
   document.addEventListener("keydown", (e) => buttonListener.notifyObservers(e));
   kidView.display();
   fireView.display();
+  scoreView.display();
 
   setInterval(function () {
     tickerListener.notifyObservers();

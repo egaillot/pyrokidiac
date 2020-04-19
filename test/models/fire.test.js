@@ -16,7 +16,7 @@ describe("The Fire", function () {
   it("grows", function () {
     const fire = aFire({ strength: 2 });
     fire.grow();
-    expect(fire.state()).to.eql({ strength: 3 });
+    expect(fire.state().strength).to.eql(3);
   });
 
   it("notifies its observers when it grows", function (done) {
@@ -66,5 +66,12 @@ describe("The Fire", function () {
     const fire = aFire({ strength: 5, maxStrength: 5 });
     fire.grow();
     expect(fire.state().strength).to.equal(5);
+  });
+
+  it("scores points when it strengthens", function () {
+    const fire = aFire({ strength: 2 });
+    expect(fire.state().score).to.equal(0);
+    fire.grow();
+    expect(fire.state().score).to.equal(1);
   });
 });

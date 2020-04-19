@@ -5,10 +5,12 @@
 
   const aFireView = function (initialState, document, selector) {
     const parent = document.querySelector(selector);
+
     const MAX_POS = 6;
     const MAX_STRENGTH = 5;
     const COLUMN_WIDTH = parent.clientWidth / MAX_POS;
     const FLAME_WIDTH = 0.8 * COLUMN_WIDTH;
+
 
     var strength = initialState.strength;
 
