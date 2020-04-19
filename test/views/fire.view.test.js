@@ -31,4 +31,14 @@ describe("Fire View", function () {
     const fireElement = document.querySelector(".fire");
     expect(fireElement.children.length).to.equal(3);
   });
+
+  it("displays Fire differently when Game Over", function () {
+    const fireView = aFireView({ strength: 1 }, document, ".playscreen");
+    const flameElement = document.querySelector(".playscreen .flame");
+    expect(flameElement).not.to.be(null);
+    expect(Object.values(flameElement.classList)).not.to.contain("game-over");
+
+    fireView.gameStateChanged({ gameOver: true });
+    expect(Object.values(flameElement.classList)).to.contain("game-over");
+  });
 });

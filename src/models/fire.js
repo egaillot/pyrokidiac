@@ -1,8 +1,9 @@
 const aFire = function (initialState) {
   const DEFAULT_MAX_STRENGTH = 5;
   const maxStrength = initialState.maxStrength || DEFAULT_MAX_STRENGTH;
+  var gameOver = (typeof(initialState.gameOver) !== "undefined") ? initialState.gameOver : false;
   var strength = initialState.strength;
-  var score = 0;
+  var scoreShift = 0;
   var observers = [];
 
   const addObserver = function (observer) {
@@ -17,9 +18,13 @@ const aFire = function (initialState) {
     return 0;
   };
 
+  const gameStateChanged = function (newState) {
+     if (!gameOver && newState.gameOver) gameIsOver();
+  };
+
   const grow = function () {
     if (strength < maxStrength) {
-      score += 1;
+      scoreShift += 1;
       shiftStrength(1);
     }
   };
@@ -29,25 +34,33 @@ const aFire = function (initialState) {
   };
 
   const nextTick = function () {
+    if (gameOver) return;
+
     if (strength > 0) dim();
   };
 
   const state = function () {
-    const gameOver = strength === 0;
-    return { strength, score, gameOver };
+    return { strength, scoreShift, gameOver };
+  };
+
+  const gameIsOver = function () {
+    gameOver = true;
+    notifyObservers();
   };
 
   const shiftStrength = function (shift) {
     strength += shift;
+    if (strength === 0) gameOver = true;
     notifyObservers();
   };
 
   const notifyObservers = function () {
     const currentState = state();
     observers.forEach((o) => o.fireStateChanged(currentState));
+    scoreShift = 0;
   };
 
-  return { addObserver, dim, edge, grow, isAlive, nextTick, state };
+  return { addObserver, dim, edge, gameStateChanged, grow, isAlive, nextTick, state };
 };
 
 (function () {

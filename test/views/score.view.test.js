@@ -19,9 +19,9 @@ describe("Score View", function () {
     expect(scoreElement.innerText).to.equal("0");
   });
 
-  it("refreshes the score when fire state changes", function () {
+  it("refreshes the score when Game state changes", function () {
     const scoreView = aScoreView(document, ".playscreen");
-    scoreView.fireStateChanged({ score: 5 });
+    scoreView.gameStateChanged({ score: 5 });
     const scoreElement = document.querySelector(".playscreen .score");
     expect(scoreElement.innerText).to.equal("5");
   });
@@ -31,14 +31,7 @@ describe("Score View", function () {
     const gameOverElement = document.querySelector(".playscreen .game-over");
     expect(gameOverElement).not.to.be(null);
     expect(gameOverElement.innerText).to.equal(undefined);
-    scoreView.fireStateChanged({ score: 5, gameOver: true });
-    expect(gameOverElement.innerText).to.equal("Game Over!");
-  });
-
-  it("displays Game Over when Kid gets burnt", function () {
-    const scoreView = aScoreView(document, ".playscreen");
-    const gameOverElement = document.querySelector(".playscreen .game-over");
-    scoreView.kidStateChanged({ gameOver: true });
+    scoreView.gameStateChanged({ score: 5, gameOver: true });
     expect(gameOverElement.innerText).to.equal("Game Over!");
   });
 });

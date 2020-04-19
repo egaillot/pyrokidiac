@@ -28,3 +28,7 @@ html {
   background: #da2c38;
   position: absolute;
 }
+
+.flame.game-over {
+  background: #888;
+}

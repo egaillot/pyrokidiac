@@ -119,16 +119,8 @@ describe("Kid", function () {
   it("looses when notified game is over", function () {
     const kid = aKid({ position: 4 }, fire);
     expect(kid.state().gameOver).to.be(false);
-    kid.fireStateChanged({ gameOver: true });
+    kid.gameStateChanged({ gameOver: true });
     expect(kid.state().gameOver).to.be(true);
-  });
-
-  it("notifies its observers when game is over", function (done) {
-    const observer = { kidStateChanged: () => done() };
-
-    const kid = aKid({ position: 4 }, fire);
-    kid.addObserver(observer);
-    kid.fireStateChanged({ gameOver: true });
   });
 
   it("looses when it attemps to walk into fire", function () {
@@ -136,5 +128,29 @@ describe("Kid", function () {
     expect(kid.state().gameOver).to.be(false);
     kid.moveLeft();
     expect(kid.state().gameOver).to.be(true);
+  });
+
+  it("ends game when told so", function (done) {
+    const observer = {
+      kidStateChanged: function (newState) {
+        expect(newState.gameOver).to.be(true);
+        done();
+      }
+    };
+
+    const kid = aKid({ position: 1 }, fire);
+    kid.addObserver(observer);
+    kid.gameStateChanged({ gameOver: true });
+  });
+
+  it("doesn't forward Game Over message when game is already over", function () {
+    var timesObserverNotified = 0;
+    const observer = { kidStateChanged: () => timesObserverNotified +=1 };
+
+    const kid = aKid({ position: 1 }, fire);
+    kid.addObserver(observer);
+    kid.gameStateChanged({ gameOver: true });
+    kid.gameStateChanged({ gameOver: true });
+    expect(timesObserverNotified).to.equal(1);
   });
 });

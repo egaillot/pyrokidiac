@@ -25,8 +25,8 @@ const aKid = function(initialState, fire) {
     }
   };
 
-  const fireStateChanged = function (newState) {
-    if (newState.gameOver) gameIsOver();
+  const gameStateChanged = function (newState) {
+    if (!gameOver && newState.gameOver) gameIsOver();
   };
 
   const isCarryingALog = function () {
@@ -87,7 +87,7 @@ const aKid = function(initialState, fire) {
     notifyObserversStateChanged();
   };
 
-  return { addObserver, dropButtonPressed, dropLog, fireStateChanged, isCarryingALog,
+  return { addObserver, dropButtonPressed, dropLog, gameStateChanged, isCarryingALog,
            leftButtonPressed, moveLeft, moveRight, position, rightButtonPressed, state };
 };
 

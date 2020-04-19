@@ -23,6 +23,13 @@
       refresh(fireElement);
     };
 
+    const gameStateChanged = function (newState) {
+      if (!newState.gameOver) return;
+
+      const flameElements = Array.from(document.getElementsByClassName("flame"));
+      flameElements.forEach((e) => e.classList.add("game-over"));
+    };
+
     const getFireElement = function () {
       const fireElement = aDivOfClass("fire", document);
       return fireElement;
@@ -60,7 +67,7 @@
     refresh(fireElement);
     parent.appendChild(fireElement);
 
-    return { display, fireStateChanged };
+    return { display, fireStateChanged, gameStateChanged };
   };
 
   const thingsToExport = { aFireView };

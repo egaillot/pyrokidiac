@@ -43,6 +43,12 @@ describe("The Fire", function () {
     expect(fire.state().strength).to.equal(1);
   });
 
+  it("doesn't dim when game is over", function () {
+    const fire = aFire({ strength: 2, gameOver: true });
+    fire.nextTick();
+    expect(fire.state().strength).to.equal(2);
+  });
+
   it("cannot go below 0", function () {
     const fire = aFire({ strength: 0 });
     fire.nextTick();
@@ -68,21 +74,51 @@ describe("The Fire", function () {
     expect(fire.state().strength).to.equal(5);
   });
 
-  it("scores points when it strengthens", function () {
+  it("scores points when it strengthens", function (done) {
+    const observer = {
+      fireStateChanged: function (state) {
+        expect(state.scoreShift).to.equal(1);
+        done();
+      }
+    };
     const fire = aFire({ strength: 2 });
-    expect(fire.state().score).to.equal(0);
+    fire.addObserver(observer);
     fire.grow();
-    expect(fire.state().score).to.equal(1);
   });
 
-  it("ends game when fire dies out", function () {
+  it("ends game when fire dies out", function (done) {
     const observer = {
       fireStateChanged: function (state) {
         expect(state.gameOver).to.be(true);
+        done();
       }
     };
     const fire = aFire({ strength: 1 });
     fire.addObserver(observer);
     fire.dim();
+  });
+
+  it("ends game when told so", function (done) {
+    const observer = {
+      fireStateChanged: function (newState) {
+        expect(newState.gameOver).to.be(true);
+        done();
+      }
+    };
+
+    const fire = aFire({ strength: 1 });
+    fire.addObserver(observer);
+    fire.gameStateChanged({ gameOver: true });
+  });
+
+  it("doesn't forward Game Over message when game is already over", function () {
+    var timesObserverNotified = 0;
+    const observer = { fireStateChanged: () => timesObserverNotified +=1 };
+
+    const fire = aFire({ strength: 1 });
+    fire.addObserver(observer);
+    fire.gameStateChanged({ gameOver: true });
+    fire.gameStateChanged({ gameOver: true });
+    expect(timesObserverNotified).to.equal(1);
   });
 });

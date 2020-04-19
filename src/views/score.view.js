@@ -12,7 +12,7 @@
       scoreElement.innerText = "0";
     };
 
-    const fireStateChanged = function (newState) {
+    const gameStateChanged = function (newState) {
       const score = newState.score;
       scoreElement.innerText = `${score}`;
       if (newState.gameOver) gameOverElement.innerText = "Game Over!";
@@ -37,7 +37,7 @@
     parent.appendChild(scoreElement);
     parent.appendChild(gameOverElement);
 
-    return { display, fireStateChanged, kidStateChanged };
+    return { display, gameStateChanged, kidStateChanged };
   };
 
   const thingsToExport = { aScoreView };

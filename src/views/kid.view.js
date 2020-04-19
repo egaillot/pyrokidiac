@@ -14,10 +14,13 @@
       kidElement.style.visibility = "visible";
     };
 
+    const gameStateChanged = function (newState) {
+      updateGameOver(newState.gameOver);
+    };
+
     const kidStateChanged = function (newState) {
       updateElementPosition(newState.position);
       updateLogCarrying(newState.carriesALog);
-      updateGameOver(newState.gameOver);
     };
 
     const updateElementPosition = function (newPosition) {
@@ -51,7 +54,7 @@
     updateElementPosition(initialState.position);
     parent.appendChild(kidElement);
 
-    return { display, kidStateChanged };
+    return { display, gameStateChanged, kidStateChanged };
   };
 
 

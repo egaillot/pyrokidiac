@@ -25,7 +25,8 @@ describe("Kid view", function () {
     const kidView = aKidView({ position: 4}, document, ".playscreen");
     const kidElement = document.querySelector(".playscreen .kid");
     expect(Object.values(kidElement.classList)).not.to.contain("game-over");
-    kidView.kidStateChanged({ gameOver: true });
+
+    kidView.gameStateChanged({ gameOver: true });
     expect(Object.values(kidElement.classList)).to.contain("game-over");
   });
 });
