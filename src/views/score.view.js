@@ -18,6 +18,10 @@
       if (newState.gameOver) gameOverElement.innerText = "Game Over!";
     };
 
+    const kidStateChanged = function (newState) {
+      if (newState.gameOver) gameOverElement.innerText = "Game Over!";
+    };
+
     const getGameOverElement = function () {
       const element = aDivOfClass("game-over", document);
       return element;
@@ -33,7 +37,7 @@
     parent.appendChild(scoreElement);
     parent.appendChild(gameOverElement);
 
-    return { display, fireStateChanged };
+    return { display, fireStateChanged, kidStateChanged };
   };
 
   const thingsToExport = { aScoreView };

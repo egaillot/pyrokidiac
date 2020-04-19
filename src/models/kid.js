@@ -26,8 +26,7 @@ const aKid = function(initialState, fire) {
   };
 
   const fireStateChanged = function (newState) {
-    gameOver = newState.gameOver;
-    if (gameOver) notifyObserversStateChanged();
+    if (newState.gameOver) gameIsOver();
   };
 
   const isCarryingALog = function () {
@@ -40,7 +39,10 @@ const aKid = function(initialState, fire) {
 
   const moveLeft = function () {
     if (gameOver) return;
-    if (currentPosition > 0) shiftPosition(-1);
+
+    const fireEdge = fire.edge();
+    if (currentPosition <= fireEdge + 1) gameIsOver();
+    else shiftPosition(-1);
   };
 
   const moveRight = function () {
@@ -63,6 +65,11 @@ const aKid = function(initialState, fire) {
       carriesALog,
       gameOver
     };
+  };
+
+  const gameIsOver = function () {
+    gameOver = true;
+    notifyObserversStateChanged();
   };
 
   const getALog = function () {

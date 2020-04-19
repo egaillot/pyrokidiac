@@ -15,6 +15,7 @@ window.start = function (selector) {
   fire.addObserver(scoreView);
   fire.addObserver(kid);
   kid.addObserver(kidView);
+  kid.addObserver(scoreView);
 
   document.addEventListener("keydown", (e) => buttonListener.notifyObservers(e));
   kidView.display();

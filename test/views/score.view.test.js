@@ -34,4 +34,11 @@ describe("Score View", function () {
     scoreView.fireStateChanged({ score: 5, gameOver: true });
     expect(gameOverElement.innerText).to.equal("Game Over!");
   });
+
+  it("displays Game Over when Kid gets burnt", function () {
+    const scoreView = aScoreView(document, ".playscreen");
+    const gameOverElement = document.querySelector(".playscreen .game-over");
+    scoreView.kidStateChanged({ gameOver: true });
+    expect(gameOverElement.innerText).to.equal("Game Over!");
+  });
 });

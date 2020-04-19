@@ -5,6 +5,7 @@ code:
 
 features:
 - Kid looses when burnt
+  - Game model
 - buttons
 - README
 - favicon

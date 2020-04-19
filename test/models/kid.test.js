@@ -2,43 +2,49 @@ const expect = require("expect.js");
 const { aKid } = require("../../src/models/kid.js");
 
 describe("Kid", function () {
+  var fire;
+
+  beforeEach(function () {
+    fire = { edge: () => 0 };
+  });
+
   it("has a starting position", function () {
-    const kid = aKid({ position: 4});
+    const kid = aKid({ position: 4}, fire);
     expect(kid.position()).to.equal(4);
   });
 
   it("moves to the left", function () {
-    const kid = aKid({ position: 4 });
+    const kid = aKid({ position: 4 }, fire);
     kid.moveLeft();
     expect(kid.position()).to.equal(3);
   });
 
   it("moves to the right", function () {
-    const kid = aKid({ position: 4 });
+    const kid = aKid({ position: 4 }, fire);
     kid.moveRight();
     expect(kid.position()).to.equal(5);
   });
 
   it("can't move left past position 0", function () {
-    const kid = aKid({ position: 0 });
+    const kid = aKid({ position: 0 }, fire);
     kid.moveLeft();
     expect(kid.position()).to.equal(0);
   });
 
   it("can't move right past position 5", function () {
-    const kid = aKid({ position: 5 });
+    const kid = aKid({ position: 5 }, fire);
     kid.moveRight();
     expect(kid.position()).to.equal(5);
   });
 
   it("updates its position when Left Button is pressed", function () {
-    const kid = aKid({ position: 4 });
+    const kid = aKid({ position: 4 }, fire);
     kid.leftButtonPressed();
     expect(kid.position()).to.equal(3);
   });
 
   it("updates its position when Right Button is pressed", function () {
-    const kid = aKid({ position: 4 });
+    const kid = aKid({ position: 4 }, fire);
     kid.rightButtonPressed();
     expect(kid.position()).to.equal(5);
   });
@@ -50,13 +56,13 @@ describe("Kid", function () {
         done();
       }
     };
-    const kid = aKid({ position: 4 });
+    const kid = aKid({ position: 4 }, fire);
     kid.addObserver(observer);
     kid.moveLeft();
   });
 
   it("gets a log when trying to move past position 5", function () {
-    const kid = aKid({ position: 5, carriesALog: false });
+    const kid = aKid({ position: 5, carriesALog: false }, fire);
     expect(kid.isCarryingALog()).to.be(false);
 
     kid.moveRight();
@@ -64,7 +70,6 @@ describe("Kid", function () {
   });
 
   it("drops the log when Drop Button is pressed", function () {
-    const fire = { edge: () => 0 };
     const kid = aKid({ position: 5, carriesALog: true }, fire);
     expect(kid.isCarryingALog()).to.be(true);
 
@@ -79,25 +84,25 @@ describe("Kid", function () {
         done();
       }
     };
-    const kid = aKid({ position: 5 });
+    const kid = aKid({ position: 5 }, fire);
     kid.addObserver(observer);
     kid.moveRight();
   });
 
   it("returns its state", function () {
-    const kid = aKid({ position: 4, carriesALog: false, gameOver: true });
+    const kid = aKid({ position: 4, carriesALog: false, gameOver: true }, fire);
     expect(kid.state()).to.eql({ position: 4, carriesALog: false, gameOver: true });
   });
 
   it("feeds Fire when dropping log close to it", function (done) {
-    const fire = { edge: () => 0, grow: done };
+    fire.grow = done;
     const kid = aKid({ position: 1, carriesALog: true }, fire);
 
     kid.dropLog();
   });
 
   it("cannot move when game is over", function () {
-    const kid = aKid({ position: 4, gameOver: true });
+    const kid = aKid({ position: 4, gameOver: true }, fire);
     kid.moveRight();
     expect(kid.state().position).to.equal(4);
     kid.moveLeft();
@@ -105,7 +110,6 @@ describe("Kid", function () {
   });
 
   it("cannot drop log when game is over", function () {
-    const fire = { edge: () => 0 };
     const kid = aKid({ position: 4, carriesALog: true, gameOver: true }, fire);
     expect(kid.state().carriesALog).to.be(true);
     kid.dropLog();
@@ -113,7 +117,7 @@ describe("Kid", function () {
   });
 
   it("looses when notified game is over", function () {
-    const kid = aKid({ position: 4 });
+    const kid = aKid({ position: 4 }, fire);
     expect(kid.state().gameOver).to.be(false);
     kid.fireStateChanged({ gameOver: true });
     expect(kid.state().gameOver).to.be(true);
@@ -122,8 +126,15 @@ describe("Kid", function () {
   it("notifies its observers when game is over", function (done) {
     const observer = { kidStateChanged: () => done() };
 
-    const kid = aKid({ position: 4 });
+    const kid = aKid({ position: 4 }, fire);
     kid.addObserver(observer);
     kid.fireStateChanged({ gameOver: true });
+  });
+
+  it("looses when it attemps to walk into fire", function () {
+    const kid = aKid({ position: 1 }, fire);
+    expect(kid.state().gameOver).to.be(false);
+    kid.moveLeft();
+    expect(kid.state().gameOver).to.be(true);
   });
 });
