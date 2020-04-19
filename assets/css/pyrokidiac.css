@@ -1,9 +1,46 @@
+@font-face {
+  font-family: "videophreak";
+  src: url("../webfonts/videophreak.ttf") format("truetype");
+}
+
 html {
   background: #364156;
+  font-family: sans-serif;
+}
+
+.game {
+  width: 800px;
+  margin: auto;
+  position: relative;
+
+  color: #da2c38;
+}
+
+.title {
+  font-family: "videophreak";
+  font-size: 45px;
+  text-align: center;
+  padding: 50px 0;
+
+  text-shadow: #011638 0px 0px 10px;
+}
+
+.left-commands, .right-commands {
+  position: absolute;
+  bottom: 0px;
+  font-size: 30px;
+}
+
+.left-commands p, .right-commands p {
+  padding: 60px 0;
+}
+
+.right-commands {
+  right: 0px;
 }
 
 .playscreen {
-  margin: 150px auto;
+  margin: auto;
   width: 600px;
   height: 400px;
   border: solid 2px #011638;
@@ -31,4 +68,30 @@ html {
 
 .flame.game-over {
   background: #888;
+}
+
+.score, .game-over-message {
+  font-family: "videophreak";
+  font-size: 30px;
+  color: #011638;
+
+  position: absolute;
+  padding: 10px;
+}
+
+.score {
+  right: 0;
+}
+
+.game-over-message {
+  left: 0;
+}
+
+.instructions {
+  width: 800px;
+  margin: 60px auto;
+  padding: 16px;
+  border: solid 1px #fffae8;
+  background: #011638;
+  color: #fffae8;
 }

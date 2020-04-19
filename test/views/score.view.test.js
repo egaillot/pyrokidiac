@@ -28,7 +28,7 @@ describe("Score View", function () {
 
   it("displays Game Over", function () {
     const scoreView = aScoreView(document, ".playscreen");
-    const gameOverElement = document.querySelector(".playscreen .game-over");
+    const gameOverElement = document.querySelector(".playscreen .game-over-message");
     expect(gameOverElement).not.to.be(null);
     expect(gameOverElement.innerText).to.equal(undefined);
     scoreView.gameStateChanged({ score: 5, gameOver: true });

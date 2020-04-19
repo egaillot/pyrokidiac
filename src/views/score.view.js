@@ -29,7 +29,7 @@
     };
 
     const getGameOverElement = function () {
-      const element = aDivOfClass("game-over", document);
+      const element = aDivOfClass("game-over-message", document);
       return element;
     };
 

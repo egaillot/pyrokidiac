@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
+  <link href="assets/css/fontAwesome.css" rel="stylesheet">
   <link href="assets/css/pyrokidiac.css" rel="stylesheet">
   <title>Pyrokidiac!</title>
 
@@ -18,7 +19,35 @@
 </head>
 
 <body>
-  <div class="playscreen">
+  <div class="game">
+    <div class="title">Pyrokidiac</div>
+
+    <div class="left-commands">
+      <p><i class="fas fa-reply"></i> A</p>
+      <p><i class="fas fa-arrow-alt-circle-left"></i> Z</p>
+    </div>
+    <div class="right-commands">
+      <p>M <i class="fas fa-arrow-alt-circle-right"></i></p>
+    </div>
+    <div class="playscreen"></div>
+
+  </div>
+
+  <div class="instructions">
+    <p>
+      You play Kid, who likes to play with fire. Kid can move left (Z) and
+      right (M), but careful – if Kid goes into the fire, game is over. When
+      Kid is at the rightmost position, s/he can get a log by pressing the M
+      key. Kid may drop the log (A) at any time… but if s/he drops it into
+      the fire, the fire grows and you get points.
+    </p>
+
+    <p>
+      If not log is put into the fire, it eventually dies out, and game is
+      over. Also, Kid can't grow the fire after a certain point. You need
+      for the fire to quiet down a bit before feeding it again and marking
+      new points.
+    </p>
   </div>
 
   <script>start(".playscreen");</script>
