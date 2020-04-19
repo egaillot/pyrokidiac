@@ -20,6 +20,10 @@ html {
   background: #43291f;
 }
 
+.kid.game-over {
+  background: #888;
+}
+
 .flame {
   background: #da2c38;
   position: absolute;

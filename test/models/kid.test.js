@@ -85,15 +85,45 @@ describe("Kid", function () {
   });
 
   it("returns its state", function () {
-    const kid = aKid({ position: 4, carriesALog: false });
-    expect(kid.state()).to.eql({ position: 4, carriesALog: false });
+    const kid = aKid({ position: 4, carriesALog: false, gameOver: true });
+    expect(kid.state()).to.eql({ position: 4, carriesALog: false, gameOver: true });
   });
-
 
   it("feeds Fire when dropping log close to it", function (done) {
     const fire = { edge: () => 0, grow: done };
     const kid = aKid({ position: 1, carriesALog: true }, fire);
 
     kid.dropLog();
+  });
+
+  it("cannot move when game is over", function () {
+    const kid = aKid({ position: 4, gameOver: true });
+    kid.moveRight();
+    expect(kid.state().position).to.equal(4);
+    kid.moveLeft();
+    expect(kid.state().position).to.equal(4);
+  });
+
+  it("cannot drop log when game is over", function () {
+    const fire = { edge: () => 0 };
+    const kid = aKid({ position: 4, carriesALog: true, gameOver: true }, fire);
+    expect(kid.state().carriesALog).to.be(true);
+    kid.dropLog();
+    expect(kid.state().carriesALog).to.be(true);
+  });
+
+  it("looses when notified game is over", function () {
+    const kid = aKid({ position: 4 });
+    expect(kid.state().gameOver).to.be(false);
+    kid.fireStateChanged({ gameOver: true });
+    expect(kid.state().gameOver).to.be(true);
+  });
+
+  it("notifies its observers when game is over", function (done) {
+    const observer = { kidStateChanged: () => done() };
+
+    const kid = aKid({ position: 4 });
+    kid.addObserver(observer);
+    kid.fireStateChanged({ gameOver: true });
   });
 });

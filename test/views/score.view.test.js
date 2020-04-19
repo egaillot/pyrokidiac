@@ -25,4 +25,13 @@ describe("Score View", function () {
     const scoreElement = document.querySelector(".playscreen .score");
     expect(scoreElement.innerText).to.equal("5");
   });
+
+  it("displays Game Over", function () {
+    const scoreView = aScoreView(document, ".playscreen");
+    const gameOverElement = document.querySelector(".playscreen .game-over");
+    expect(gameOverElement).not.to.be(null);
+    expect(gameOverElement.innerText).to.equal(undefined);
+    scoreView.fireStateChanged({ score: 5, gameOver: true });
+    expect(gameOverElement.innerText).to.equal("Game Over!");
+  });
 });

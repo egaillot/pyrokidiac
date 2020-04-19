@@ -17,6 +17,7 @@
     const kidStateChanged = function (newState) {
       updateElementPosition(newState.position);
       updateLogCarrying(newState.carriesALog);
+      updateGameOver(newState.gameOver);
     };
 
     const updateElementPosition = function (newPosition) {
@@ -30,6 +31,10 @@
       style.height = `${HEIGHT}px`;
       style.left = `${x_position}px`;
       style.top = `${y_position}px`;
+    };
+
+    const updateGameOver = function (gameOver) {
+      if (gameOver) kidElement.classList.add("game-over");
     };
 
     const updateLogCarrying = function (carriesALog) {

@@ -74,4 +74,15 @@ describe("The Fire", function () {
     fire.grow();
     expect(fire.state().score).to.equal(1);
   });
+
+  it("ends game when fire dies out", function () {
+    const observer = {
+      fireStateChanged: function (state) {
+        expect(state.gameOver).to.be(true);
+      }
+    };
+    const fire = aFire({ strength: 1 });
+    fire.addObserver(observer);
+    fire.dim();
+  });
 });

@@ -4,6 +4,7 @@ code:
 - remove `.js` from file paths
 
 features:
+- Kid looses when burnt
 - buttons
 - README
 - favicon

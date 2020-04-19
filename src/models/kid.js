@@ -1,6 +1,7 @@
 const aKid = function(initialState, fire) {
   var currentPosition = initialState.position;
   var carriesALog = initialState.carriesALog;
+  var gameOver = typeof(initialState.gameOver) !== "undefined" ? initialState.gameOver : false;
   var observers = [];
 
   const addObserver = function (observer) {
@@ -12,6 +13,8 @@ const aKid = function(initialState, fire) {
   };
 
   const dropLog = function () {
+    if (gameOver) return;
+
     if (carriesALog) {
       carriesALog = false;
       notifyObserversStateChanged();
@@ -20,6 +23,11 @@ const aKid = function(initialState, fire) {
         fire.grow();
       }
     }
+  };
+
+  const fireStateChanged = function (newState) {
+    gameOver = newState.gameOver;
+    if (gameOver) notifyObserversStateChanged();
   };
 
   const isCarryingALog = function () {
@@ -31,10 +39,12 @@ const aKid = function(initialState, fire) {
   };
 
   const moveLeft = function () {
+    if (gameOver) return;
     if (currentPosition > 0) shiftPosition(-1);
   };
 
   const moveRight = function () {
+    if (gameOver) return;
     if (currentPosition < 5) shiftPosition(1);
     else getALog();
   };
@@ -50,7 +60,8 @@ const aKid = function(initialState, fire) {
   const state = function () {
     return {
       position: currentPosition,
-      carriesALog: carriesALog
+      carriesALog,
+      gameOver
     };
   };
 
@@ -69,8 +80,8 @@ const aKid = function(initialState, fire) {
     notifyObserversStateChanged();
   };
 
-  return { addObserver, dropButtonPressed, dropLog, isCarryingALog, leftButtonPressed,
-           moveLeft, moveRight, position, rightButtonPressed, state };
+  return { addObserver, dropButtonPressed, dropLog, fireStateChanged, isCarryingALog,
+           leftButtonPressed, moveLeft, moveRight, position, rightButtonPressed, state };
 };
 
 (function () {

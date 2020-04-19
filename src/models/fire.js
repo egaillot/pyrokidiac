@@ -33,7 +33,8 @@ const aFire = function (initialState) {
   };
 
   const state = function () {
-    return { strength, score };
+    const gameOver = strength === 0;
+    return { strength, score, gameOver };
   };
 
   const shiftStrength = function (shift) {
